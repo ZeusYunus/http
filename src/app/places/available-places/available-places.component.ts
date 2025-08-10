@@ -22,12 +22,12 @@ export class AvailablePlacesComponent implements OnInit {
   ngOnInit(): void {
     const subscription = this.httpClient
       .get<{ places: Place[] }>('http://localhost:3000/places', {
-        observe: 'response'
+        observe: 'events'
       })
       .subscribe({
-        next: (responses) => {
-          console.log(responses);
-          console.log(responses.body?.places);
+        next: (event) => {
+          console.log(event);
+          // console.log(responses.body?.places);
         }
       });
 
