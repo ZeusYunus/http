@@ -20,11 +20,16 @@ export class AvailablePlacesComponent implements OnInit {
   // constructor(private httpClient: HttpClient) {}
 
   ngOnInit(): void {
-    const subscription = this.httpClient.get<{places: Place[]}>('http://localhost:3000/places').subscribe({
-      next: (resData) => {
-        console.log(resData.places);
-      }
-    });
+    const subscription = this.httpClient
+      .get<{ places: Place[] }>('http://localhost:3000/places', {
+        observe: 'response'
+      })
+      .subscribe({
+        next: (responses) => {
+          console.log(responses);
+          console.log(responses.body?.places);
+        }
+      });
 
     this.destroyRef.onDestroy(() => {
       subscription.unsubscribe();
